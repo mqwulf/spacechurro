@@ -11,4 +11,4 @@
 - **Programming Languages**: Python (for robotic arm control and backend), JavaScript (for frontend)
 
 <img title="screenshot" src="screenshot.png">
-<img title="physical" src="physical.png">
+<img title="physical" src="physical.jpg">
