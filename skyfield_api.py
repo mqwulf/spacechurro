@@ -34,11 +34,15 @@ utc_datetime = datetime.now(timezone.utc)
 
 ts = load.timescale()
 t = ts.from_datetime(utc_datetime)
+
+object_data = {}
+
 print("\nPlanet Data:")
 for planet_name, planet_key in planet_names.items():
     planet = planets[planet_key]
     astrometric = oberserver_location.at(t).observe(planet)
     alt, az, distance = astrometric.apparent().altaz()
+    object_data[planet_name.lower()] = {'altitude': alt.degrees, 'azimuth': az.degrees}
     print(f"Planet Name: {planet_name}: Altitude: {alt.degrees:.2f}°, Azimuth: {az.degrees:.2f}°, Distance: {distance.km:.2f} km")
 
 print("\nStar Data:")
@@ -48,4 +52,15 @@ for index, row in sorted_df.iterrows():
     star = Star.from_dataframe(df.loc[hip])
     astrometric = oberserver_location.at(t).observe(star)
     alt, az, distance = astrometric.apparent().altaz()
+    object_data[row['name'].lower()] = {'altitude': alt.degrees, 'azimuth': az.degrees}
     print(f"Star Name: {row['name']}, Magnitude: {row['magnitude']}, Altitude: {alt.degrees:.2f}°, Azimuth: {az.degrees:.2f}°, Distance: {distance.km:.2f} km")
+
+def get_object_data(object_name):
+    object_name = object_name.lower()
+    if object_name in object_data:
+        return object_data[object_name]
+    else:
+        return f"Object '{object_name}' not found in the data."
+
+print(f"Mars altitude: {get_object_data('mars')['altitude']:.2f}°, azimuth: {get_object_data('mars')['azimuth']:.2f}°")
+print(f"Sirius altitude: {get_object_data('sirius')['altitude']:.2f}°, azimuth: {get_object_data('sirius')['azimuth']:.2f}°")
