@@ -15,6 +15,7 @@ print(f"Detected location: Latitude: {latitude}, Longitude: {longitude}")
 planets = load('de421.bsp')
 earth = planets['earth']
 planet_names = {
+    'moon' : 'moon',
     'sun': 'sun',
     'mercury': 'mercury',
     'venus': 'venus',
@@ -60,7 +61,7 @@ def get_object_data(object_name):
     if object_name in object_data:
         return object_data[object_name]
     else:
-        return object_data['sun']
+        return f"Object '{object_name}' not found in the data."
 
 
 
@@ -74,6 +75,7 @@ BASEBIAS = 0
 CONVERSION = 1/90
 
 def findStar(object):
+    print("Object: " + str(object))
     direction = ""
     
     object_info = get_object_data(object)
@@ -88,21 +90,20 @@ def findStar(object):
      
     direction = 0
 
-    print("Azimuth " + str(cords.alt))
-    print("Altitude " + str(cords.az))
+    print("Azimuth " + str(cords['altitude']))
+    print("Altitude " + str(cords['azimuth']))
 
-    if (cords.az < 90 or cords.az > 270):
+    if (cords['azimuth'] < 90 or cords['azimuth'] > 270):
         direction = "Point North"
-        if(cords.az>270):
-            cords.az = cords.az - 360
+        if(cords['azimuth']>270):
+            cords['azimuth'] = cords['azimuth'] - 360
             
     else:
         direction = "Point South"
-        cords.az = cords.az - 180
+        cords['azimuth'] = cords['azimuth'] - 180
     
-    base = float(CONVERSION*-1*(cords.az+BASEBIAS))
-    mid = float((CONVERSION*(cords.alt+ARMBIAS)))
-    
+    base = float(CONVERSION*-1*(cords['azimuth']+BASEBIAS))
+    mid = float((CONVERSION*(cords['altitude']+ARMBIAS)))
     print("Base: " + str(base))
     print("Mid: " + str(mid))
     baseServo.value = base
