@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
+import logo from "./logo.png";
 
 function AstronomyApp() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [objectInfo, setObjectInfo] = useState(
-    "The Sun, our closest star, is a giant, hot sphere of plasma and gas at the center of the Solar System. Here are some key facts: Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  );
+  const [objectInfo, setObjectInfo] = useState("spaceChurro  v1.0 🚀 ");
   const [response, setResponse] = useState("");
-  const [videoDevices, setVideoDevices] = useState([]); // State to hold video devices
-  const [selectedDeviceId, setSelectedDeviceId] = useState(""); // State for selected device ID
-  const videoRef = useRef(null); // Create a ref for the video element
+  const [videoDevices, setVideoDevices] = useState([]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState("");
+  const videoRef = useRef(null);
 
   const handleSearch = () => {
     console.log(`Searching for: ${searchQuery}`);
     sendString(searchQuery);
+    setObjectInfo(`spaceChurro  v1.0 🚀 is looking at ${searchQuery}`);
   };
 
   const sendString = (inputString) => {
@@ -30,47 +30,43 @@ function AstronomyApp() {
         return response.json();
       })
       .then((data) => {
-        setResponse(data.result); // Update state with the response
+        setResponse(data.result);
       })
       .catch((error) => console.error("Error:", error));
   };
 
-  // Function to start the camera
   const startCamera = async (deviceId) => {
     try {
       const constraints = {
         video: {
-          deviceId: deviceId ? { exact: deviceId } : undefined, // Use the selected deviceId if available
+          deviceId: deviceId ? { exact: deviceId } : undefined,
         },
       };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       if (videoRef.current) {
-        videoRef.current.srcObject = stream; // Set the video element's source to the camera stream
+        videoRef.current.srcObject = stream;
       }
     } catch (error) {
       console.error("Error accessing the camera:", error);
     }
   };
 
-  // Use useEffect to list video devices and start the camera
   useEffect(() => {
     const fetchVideoDevices = async () => {
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoInputs = devices.filter(
         (device) => device.kind === "videoinput"
       );
-      setVideoDevices(videoInputs); // Set state with video input devices
+      setVideoDevices(videoInputs);
 
-      // Automatically select the first device if none is selected
       if (videoInputs.length > 0 && !selectedDeviceId) {
-        setSelectedDeviceId(videoInputs[0].deviceId);
+        setSelectedDeviceId(videoInputs[1].deviceId);
       }
     };
 
     fetchVideoDevices();
   }, [selectedDeviceId]);
 
-  // Effect to start the camera when the selected device changes
   useEffect(() => {
     if (selectedDeviceId) {
       startCamera(selectedDeviceId);
@@ -79,17 +75,12 @@ function AstronomyApp() {
 
   return (
     <div style={styles.container}>
-      <video
-        ref={videoRef} // Attach the ref to the video element
-        autoPlay
-        style={styles.video}
-      />
+      <img src={logo} alt="Logo" style={styles.logo} />
+      <video ref={videoRef} autoPlay style={styles.video} />
       <div
         style={styles.microphoneIcon}
         onClick={() => console.log("Microphone clicked")}
-      >
-        {/* Microphone SVG Icon */}
-      </div>
+      ></div>
       <div style={styles.searchContainer}>
         <input
           type="text"
@@ -116,7 +107,6 @@ function AstronomyApp() {
       </select>
       <div style={styles.infoBox}>{objectInfo}</div>
       {response && <div style={styles.responseBox}>{response}</div>}{" "}
-      {/* Display the response */}
     </div>
   );
 }
@@ -128,14 +118,25 @@ const styles = {
     alignItems: "center",
     backgroundColor: "#f0f0f0",
     padding: "20px",
+    marginTop: "50px",
     borderRadius: "10px",
-    width: "500px",
+    paddingTop: "100px",
+    width: "700px",
     margin: "auto",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    position: "relative", // Add position relative for absolute positioning
+    position: "relative",
+    height: "500px",
+  },
+  logo: {
+    position: "absolute",
+    top: "20px",
+    left: "20px",
+    width: "105px",
+    height: "auto",
+    zIndex: 10,
   },
   video: {
-    width: "300px",
+    width: "400px",
     height: "auto",
     borderRadius: "10px",
     marginBottom: "20px",
@@ -151,12 +152,12 @@ const styles = {
     marginBottom: "20px",
   },
   select: {
-    position: "absolute", // Position the select box absolutely
-    top: "10px", // Adjust as necessary
-    right: "10px", // Adjust as necessary
-    width: "100px", // Make it small
-    fontSize: "12px", // Smaller font size
-    padding: "5px", // Less padding for a smaller appearance
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    width: "100px",
+    fontSize: "12px",
+    padding: "5px",
     borderRadius: "4px",
     border: "1px solid #ccc",
     outline: "none",

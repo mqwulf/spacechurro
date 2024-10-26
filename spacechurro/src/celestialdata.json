@@ -1,0 +1,102 @@
+{
+  "celestial_objects": [
+    {
+      "name": "Sun",
+      "type": "Star",
+      "altitude": 33.61,
+      "azimuth": 147.36,
+      "distance_km": 148687243.85
+    },
+    {
+      "name": "Mercury",
+      "type": "Planet",
+      "altitude": 20.55,
+      "azimuth": 136.66,
+      "distance_km": 198830577.59
+    },
+    {
+      "name": "Venus",
+      "type": "Planet",
+      "altitude": 3.83,
+      "azimuth": 123.78,
+      "distance_km": 180847552.64
+    },
+    {
+      "name": "Earth",
+      "type": "Planet",
+      "altitude": 0.0,
+      "azimuth": 0.0,
+      "distance_km": 0.0
+    },
+    {
+      "name": "Mars",
+      "type": "Planet",
+      "altitude": 32.61,
+      "azimuth": 274.05,
+      "distance_km": 158189442.19
+    },
+    {
+      "name": "Jupiter",
+      "type": "Planet",
+      "altitude": 3.02,
+      "azimuth": 296.1,
+      "distance_km": 647940669.01
+    },
+    {
+      "name": "Saturn",
+      "type": "Planet",
+      "altitude": -56.56,
+      "azimuth": 35.63,
+      "distance_km": 1345139273.89
+    },
+    {
+      "name": "Uranus",
+      "type": "Planet",
+      "altitude": -16.75,
+      "azimuth": 311.15,
+      "distance_km": 2788666144.48
+    },
+    {
+      "name": "Neptune",
+      "type": "Planet",
+      "altitude": -54.39,
+      "azimuth": 10.01,
+      "distance_km": 4351593466.42
+    },
+    {
+      "name": "Sirius",
+      "type": "Star",
+      "altitude": -4.39,
+      "azimuth": 252.25,
+      "distance_km": 81371172335569.7
+    },
+    {
+      "name": "Canopus",
+      "type": "Star",
+      "altitude": -27.78,
+      "azimuth": 223.2,
+      "distance_km": 2958463633733384.5
+    },
+    {
+      "name": "Arcturus",
+      "type": "Star",
+      "altitude": 58.04,
+      "azimuth": 116.61,
+      "distance_km": 347290816648573.88
+    },
+    {
+      "name": "Toliman",
+      "type": "Star",
+      "altitude": -12.64,
+      "azimuth": 162.91,
+      "distance_km": 41579332029489.45
+    },
+    {
+      "name": "Vega",
+      "type": "Star",
+      "altitude": 18.86,
+      "azimuth": 55.08,
+      "distance_km": 239000000000000.0
+    }
+  ]
+}
