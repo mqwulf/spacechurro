@@ -1,40 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function AstronomyApp() {
   const [searchQuery, setSearchQuery] = useState("");
   const [objectInfo, setObjectInfo] = useState(
     "The Sun, our closest star, is a giant, hot sphere of plasma and gas at the center of the Solar System. Here are some key facts: Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   );
+  const [response, setResponse] = useState("");
+  const [videoDevices, setVideoDevices] = useState([]); // State to hold video devices
+  const [selectedDeviceId, setSelectedDeviceId] = useState(""); // State for selected device ID
+  const videoRef = useRef(null); // Create a ref for the video element
 
   const handleSearch = () => {
     console.log(`Searching for: ${searchQuery}`);
+    sendString(searchQuery);
   };
+
+  const sendString = (inputString) => {
+    fetch("http://10.0.0.236:5000/api/modify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ input: inputString }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setResponse(data.result); // Update state with the response
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  // Function to start the camera
+  const startCamera = async (deviceId) => {
+    try {
+      const constraints = {
+        video: {
+          deviceId: deviceId ? { exact: deviceId } : undefined, // Use the selected deviceId if available
+        },
+      };
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream; // Set the video element's source to the camera stream
+      }
+    } catch (error) {
+      console.error("Error accessing the camera:", error);
+    }
+  };
+
+  // Use useEffect to list video devices and start the camera
+  useEffect(() => {
+    const fetchVideoDevices = async () => {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoInputs = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      setVideoDevices(videoInputs); // Set state with video input devices
+
+      // Automatically select the first device if none is selected
+      if (videoInputs.length > 0 && !selectedDeviceId) {
+        setSelectedDeviceId(videoInputs[0].deviceId);
+      }
+    };
+
+    fetchVideoDevices();
+  }, [selectedDeviceId]);
+
+  // Effect to start the camera when the selected device changes
+  useEffect(() => {
+    if (selectedDeviceId) {
+      startCamera(selectedDeviceId);
+    }
+  }, [selectedDeviceId]);
 
   return (
     <div style={styles.container}>
-      <img src="" alt="Astronomical Object" style={styles.image} />
+      <video
+        ref={videoRef} // Attach the ref to the video element
+        autoPlay
+        style={styles.video}
+      />
       <div
         style={styles.microphoneIcon}
         onClick={() => console.log("Microphone clicked")}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-microphone"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" />
-          <path d="M5 10a7 7 0 0 0 14 0" />
-          <path d="M8 21l8 0" />
-          <path d="M12 17l0 4" />
-        </svg>
+        {/* Microphone SVG Icon */}
       </div>
       <div style={styles.searchContainer}>
         <input
@@ -48,7 +102,21 @@ function AstronomyApp() {
           Find
         </button>
       </div>
+      <select
+        id="cameraSelect"
+        value={selectedDeviceId}
+        onChange={(e) => setSelectedDeviceId(e.target.value)}
+        style={styles.select}
+      >
+        {videoDevices.map((device) => (
+          <option key={device.deviceId} value={device.deviceId}>
+            {device.label || `Camera ${videoDevices.indexOf(device) + 1}`}
+          </option>
+        ))}
+      </select>
       <div style={styles.infoBox}>{objectInfo}</div>
+      {response && <div style={styles.responseBox}>{response}</div>}{" "}
+      {/* Display the response */}
     </div>
   );
 }
@@ -61,14 +129,15 @@ const styles = {
     backgroundColor: "#f0f0f0",
     padding: "20px",
     borderRadius: "10px",
-    width: "300px",
+    width: "500px",
     margin: "auto",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    position: "relative", // Add position relative for absolute positioning
   },
-  image: {
-    width: "150px",
-    height: "150px",
-    borderRadius: "50%",
+  video: {
+    width: "300px",
+    height: "auto",
+    borderRadius: "10px",
     marginBottom: "20px",
   },
   microphoneIcon: {
@@ -80,6 +149,17 @@ const styles = {
     display: "flex",
     alignItems: "center",
     marginBottom: "20px",
+  },
+  select: {
+    position: "absolute", // Position the select box absolutely
+    top: "10px", // Adjust as necessary
+    right: "10px", // Adjust as necessary
+    width: "100px", // Make it small
+    fontSize: "12px", // Smaller font size
+    padding: "5px", // Less padding for a smaller appearance
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    outline: "none",
   },
   searchInput: {
     padding: "8px",
@@ -104,6 +184,13 @@ const styles = {
     textAlign: "center",
     color: "#333",
     fontSize: "14px",
+  },
+  responseBox: {
+    marginTop: "10px",
+    padding: "10px",
+    backgroundColor: "#d0f0c0",
+    borderRadius: "5px",
+    textAlign: "center",
   },
 };
 
