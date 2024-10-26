@@ -37,6 +37,12 @@ function AdditionalInfo() {
         <label>Magnetic Field: </label> {/* {data.magneticField ? data.magneticField : 'N/A'} */}
       </div>
       <div className="mb-2 label-font">
+        <label>Number of Moons: </label> {/* {data.numberOfMoons ? data.numberOfMoons : 'N/A'} */}
+      </div>
+      <div className="mb-2 label-font">
+        <label>Life Stage: </label> {/* {data.lifeStage ? data.lifeStage : 'N/A'} */}
+      </div>
+      <div className="mb-2 label-font">
         <label>Orbital Path: </label> {/* {data.orbitalPath ? data.orbitalPath : 'N/A'} */}
       </div>
       <div className="mb-2 label-font">
@@ -47,12 +53,6 @@ function AdditionalInfo() {
       </div>
       <div className="mb-2 label-font">
         <label>Axial Tilt: </label> {/* {data.axialTilt ? data.axialTilt : 'N/A'} */}
-      </div>
-      <div className="mb-2 label-font">
-        <label>Number of Moons: </label> {/* {data.numberOfMoons ? data.numberOfMoons : 'N/A'} */}
-      </div>
-      <div className="mb-2 label-font">
-        <label>Life Stage: </label> {/* {data.lifeStage ? data.lifeStage : 'N/A'} */}
       </div>
     </div>
   )

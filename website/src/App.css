@@ -9,6 +9,21 @@
     font-weight: bold;
 }
 
+.space-background {
+    background-image: url('./assets/space-background-1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #000;
+
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
 .nav-font {
     height: 100%;
     display: flex;
@@ -39,12 +54,26 @@
     background-blend-mode: overlay, screen, normal;
     background-size: cover;
     background-position: center;
+    opacity: 0.4;
+    z-index: -1;
 }
 
 .space-gradient-background-2 {
     background: rgb(238, 174, 202);
     background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(87, 88, 140, 1) 100%);
-    opacity: 0.9;
+    opacity: 1;
+    z-index: -1;
+}
+
+.input-group,
+.form-group {
+    opacity: 0.6;
+}
+
+input-area::placeholder {
+    color: red;
+    opacity: 1;
+    /* Firefox */
 }
 
 .App-header {
@@ -65,14 +94,23 @@
 
 .right-container {
     position: absolute;
-    top: 8%;
+    top: 10.5%;
     left: 71%;
-    max-width: 22%;
+    height: 84%;
+    width: 22%;
+    padding: 60px;
+    background-color: #b3c8e0a1;
+    border: 4px solid #2a394ed3;
+    border-radius: 15px;
+}
+
+.footer {
+    bottom: 0%;
 }
 
 .image-container {
     position: relative;
-    border: 8px solid rgb(216 191 221);
+    border: 8px solid rgb(101 50 111);
     width: 100%;
     border-radius: 10px;
     background-color: #f9f9f9;
