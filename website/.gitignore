@@ -1,3 +1,7 @@
+/public/
+/resources/_gen/*
+/resources/_gen/**/*.svg
+
 .cache/
 
 *.bak
