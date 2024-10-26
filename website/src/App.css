@@ -3,10 +3,18 @@
     src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
+.oxanium-font {
+    font-family: "Oxanium", sans-serif;
+    font-size: 16px;
+    font-optical-sizing: auto;
+    color: #cecdcb;
+}
+
 .label-font {
     font-family: "San Francisco", sans-serif;
     font-size: 24px;
     font-weight: bold;
+    color: #cecdcb;
 }
 
 .space-background {
@@ -31,14 +39,18 @@
     text-align: center;
     font-size: 32px !important;
     font-weight: bold;
-    margin-left: 2%;
+    margin-left: 3%;
 }
 
 .navbar {
-    height: 80px;
+    height: 80px !important;
     display: flex;
     align-items: center;
     text-align: center;
+}
+
+.navbar-opacity {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .container-fluid {
@@ -65,15 +77,22 @@
     z-index: -1;
 }
 
-.input-group,
 .form-group {
-    opacity: 0.6;
+    opacity: 0.75;
 }
 
-input-area::placeholder {
+.input-details {
+    width: 40% !important;
+    margin-right: 12px;
+}
+
+.input-area.placeholder {
     color: red;
     opacity: 1;
-    /* Firefox */
+}
+
+.find-button {
+    width: 10% !important;
 }
 
 .App-header {
@@ -87,20 +106,22 @@ input-area::placeholder {
 
 .left-container {
     position: absolute;
-    top: 6%;
-    left: 6%;
-    max-width: 62%;
+    top: 16%;
+    left: 20%;
+    width: 38%;
 }
 
 .right-container {
     position: absolute;
-    top: 10.5%;
-    left: 71%;
-    height: 84%;
-    width: 22%;
+    top: 17.5%;
+    left: 60%;
+    min-height: 45%;
+    width: 20%;
     padding: 60px;
-    background-color: #b3c8e0a1;
-    border: 4px solid #2a394ed3;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #1e1f20a1;
+    border: 4px;
     border-radius: 15px;
 }
 
@@ -113,7 +134,7 @@ input-area::placeholder {
     border: 8px solid rgb(101 50 111);
     width: 100%;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: #7b5a81;
 }
 
 *:focus,
@@ -124,4 +145,39 @@ input-area::placeholder {
 img {
     width: 100%;
     height: auto;
+}
+
+.btn-circle {
+    width: 45px;
+    height: 45px;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 35px;
+}
+
+
+/* use negative margins to accommodate wider button text */
+
+.btn-circle span {
+    margin: 0 -2re
 }
