@@ -8,9 +8,11 @@ midServo = Servo(18, min_pulse_width = 1.2/1000, max_pulse_width = 2.5/1000, pin
 armServo = Servo(13, min_pulse_width = 0.9/1000, max_pulse_width = 2.2/1000, pin_factory = myFactory)
 
 while True:
+    #input values are between -1 and 1 - this moves them between their minimum pulse width and the maximum
     inpu1 = input("Angle1: ")
     inpu2 = input("Angle2: ")
     inpu3 = input("Angle3: ")
+    
     baseServo.value = float(inpu1)
     midServo.value = float(inpu2)
     armServo.value = float(inpu3)
