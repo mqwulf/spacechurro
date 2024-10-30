@@ -2,6 +2,8 @@
 
 **Space Churro** is an innovative smart lens device that can locate and point to celestial objects in the night sky, making stargazing and astronomy exploration easy and accessible for anyone. With a web-based interface, Space Churro allows users to simply input the name of a star, planet, or constellation, and the device will accurately point to its position in the sky. It’s a perfect companion for astronomy enthusiasts, students, and curious minds alike!
 
+[**DEVPOST link**]([url](https://devpost.com/software/the-space-churro?ref_content=my-projects-tab&ref_feature=my_projects))
+
 ## Tech Stack
 
 - **Frontend**: React.js
